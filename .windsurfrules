@@ -1,0 +1,27 @@
+# API Gateway - Windsurf Rules
+
+## Project Overview
+Go 1.22 API Gateway service - central entry point for all Facebook microservices.
+Handles routing, auth verification, rate limiting, circuit breaking, and observability.
+
+## Tech Stack
+- Go 1.22
+- chi router for HTTP
+- zap for structured logging
+- prometheus for metrics
+- OpenTelemetry for distributed tracing
+- Redis for rate limit state and token cache
+
+## Commands
+- Build: `make build`
+- Test: `make test`
+- Lint: `make lint`
+- Run: `make run`
+
+## Middleware Chain Order (DO NOT change without review)
+1. Recovery → 2. RequestID → 3. Logging → 4. Tracing → 5. CORS → 6. RateLimit → 7. Auth → 8. CircuitBreaker → 9. Transform → 10. Proxy
+
+## Do NOT
+- Do not modify middleware chain order in router.go
+- Do not add routes directly in Go code (use routes.yaml)
+- Do not expose admin API port externally
