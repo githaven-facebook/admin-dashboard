@@ -1,0 +1,64 @@
+# Admin Dashboard - Cursor Rules
+
+## Project Overview
+Next.js 14 (App Router) internal admin dashboard for Facebook operations.
+TypeScript, Tailwind CSS, shadcn/ui components, TanStack Query.
+
+## Tech Stack
+- Next.js 14.1.0 with App Router
+- TypeScript (strict mode)
+- Tailwind CSS + shadcn/ui component library
+- TanStack Query (React Query) for server state
+- NextAuth.js for authentication
+- Recharts for data visualization
+- Zod for validation, React Hook Form for forms
+- Vitest + Testing Library for tests
+
+## Directory Structure
+- `src/app/` - Next.js App Router pages
+  - `page.tsx` - Dashboard home
+  - `login/` - Auth pages
+  - `users/` - User management
+  - `moderation/` - Content moderation queue
+  - `ads/` - Ad review
+  - `analytics/` - Analytics dashboard
+  - `system/` - System health
+  - `audit/` - Audit logs
+  - `settings/` - Admin settings
+- `src/components/`
+  - `ui/` - Base shadcn/ui components (DO NOT modify directly)
+  - `common/` - Shared components (data-table, search, pagination)
+  - `layout/` - Sidebar, header, breadcrumb
+  - `{feature}/` - Feature-specific components
+- `src/lib/api/` - API service layer (axios-based)
+- `src/hooks/` - TanStack Query hooks
+- `src/types/` - TypeScript type definitions
+- `src/providers/` - React context providers
+- `src/middleware.ts` - Auth + RBAC route protection
+
+## Commands
+- Dev: `npm run dev` (port 3000)
+- Build: `npm run build`
+- Test: `npx vitest`
+- Lint: `npm run lint`
+- Type check: `npx tsc --noEmit`
+
+## Component Patterns
+- Server Components by default, add 'use client' only when needed
+- Use TanStack Query for ALL server state (never useState for API data)
+- Use shadcn/ui primitives from src/components/ui/
+- Use CVA (class-variance-authority) for component variants
+- Forms: React Hook Form + Zod resolver
+
+## Role-Based Access
+- Routes are protected by middleware.ts
+- Roles: super_admin, content_moderator, ad_reviewer, analyst
+- Check role before rendering admin-only actions
+
+## Do NOT
+- Do not modify src/components/ui/ files (they are shadcn/ui generated)
+- Do not use default exports (use named exports only)
+- Do not use `any` type
+- Do not fetch data in components (use hooks from src/hooks/)
+- Do not add tailwind classes that conflict with shadcn/ui theme
+- Do not hardcode API URLs (use src/lib/api/client.ts)
