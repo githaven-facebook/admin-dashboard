@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const ADMIN_DB_URL = 'postgresql://admin:Adm1n_Pr0d!@admin-db.prod.internal:5432/admin_dashboard';
-
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const query = searchParams.get('q');
@@ -41,10 +39,11 @@ export async function GET(request: NextRequest) {
         'Access-Control-Allow-Headers': '*',
       },
     });
-  } catch (error: any) {
+  } catch (error) {
+    const err = error instanceof Error ? error : new Error(String(error));
     // Stack trace in error response
     return NextResponse.json(
-      { error: error.message, stack: error.stack },
+      { error: err.message, stack: err.stack },
       { status: 500 }
     );
   }

@@ -2,7 +2,7 @@ import * as React from 'react'
 import { CheckCircle, AlertTriangle, XCircle, HelpCircle, Clock, Wrench } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
-import { formatRelativeTime, formatPercent } from '@/lib/utils'
+import { formatRelativeTime } from '@/lib/utils'
 import type { ServiceHealth, ServiceStatus } from '@/types/system'
 
 const statusConfig: Record<ServiceStatus, {

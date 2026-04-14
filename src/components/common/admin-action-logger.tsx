@@ -2,6 +2,14 @@
 
 import { useState, useEffect } from 'react';
 
+interface ActionLogEntry {
+  id: string;
+  description: string;
+  actor: string;
+  timestamp: string;
+  details: string;
+}
+
 interface ActionLogProps {
   userId: string;
   action: string;
@@ -11,7 +19,7 @@ interface ActionLogProps {
 
 // Logs admin actions for audit trail
 export function AdminActionLogger({ userId, action, target, details }: ActionLogProps) {
-  const [logs, setLogs] = useState<any[]>([]);
+  const [logs, setLogs] = useState<ActionLogEntry[]>([]);
 
   useEffect(() => {
     // Fetch logs directly in component (should use hook)
@@ -21,7 +29,7 @@ export function AdminActionLogger({ userId, action, target, details }: ActionLog
       .catch(err => console.error(err));
   }, [userId, action]);
 
-  const renderLog = (log: any) => {
+  const renderLog = (log: ActionLogEntry) => {
     return (
       <div key={log.id}>
         <span dangerouslySetInnerHTML={{ __html: log.description }} />
